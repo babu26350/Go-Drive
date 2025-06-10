@@ -403,6 +403,21 @@ font-weight: 700;
 color: #faf6f3;
 font-weight: 700;
 }
+#sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #333;
+      color: white;
+      position: fixed;
+      left: -250px;
+      top: 0;
+      transition: left 0.3s ease;
+      padding: 20px;
+    }
+
+    #sidebar.open {
+      left: 0;
+    }
 
   </style>
 </head>
@@ -434,6 +449,14 @@ font-weight: 700;
     ☰
   </div>
 </header>
+ <div id="sidebar">
+    <h2>Sidebar Menu</h2>
+    <ul>
+      <li>Home</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+  </div>
 
   <div class="hero">
     <h1>Our Response To Your Travel</h1>
