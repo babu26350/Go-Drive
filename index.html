@@ -418,7 +418,16 @@ font-weight: 700;
     #sidebar.open {
       left: 0;
     }
-
+#closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
   </style>
 </head>
 <body>
@@ -450,13 +459,15 @@ font-weight: 700;
   </div>
 </header>
  <div id="sidebar">
-    <h2>Sidebar Menu</h2>
-    <ul>
-      <li>Home</li>
-      <li>About</li>
-      <li>Contact</li>
-    </ul>
-  </div>
+  <button id="closeBtn" onclick="toggleSidebar()">×</button>
+  <h2>Sidebar Menu</h2>
+  <ul>
+    <li>Home</li>
+    <li>About</li>
+    <li>Contact</li>
+  </ul>
+</div>
+
 
   <div class="hero">
     <h1>Our Response To Your Travel</h1>
