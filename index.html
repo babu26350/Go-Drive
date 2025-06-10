@@ -76,7 +76,37 @@
       gap: 20px;
       justify-content: center;
     }
-
+#question-box {
+      background: #fff;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      padding: 10px 0px;
+      margin-top: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+    #final-summary {
+      background: #d4ffd4;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    a.whatsapp-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
     .card {
     background: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
     
@@ -490,7 +520,96 @@ font-weight: 700;
   <div class="hero">
     <h1 class="head">Uppadhayay Tour and Travels Deshnoke</h1>
   </div>
+<div id="question-box">
+  <p id="question-text"></p>
+  <input type="text" id="answer-input" placeholder="अपना उत्तर लिखें..." />
+  <button onclick="handleNext()">आगे बढ़ें</button>
+</div>
 
+<div id="final-summary" style="display:none;"></div>
+
+<script>
+  let step = 0;
+
+  let data = {
+    name: "",
+    place: "",
+    distance: "",
+    contact: ""
+  };
+
+  const questionText = document.getElementById("question-text");
+  const answerInput = document.getElementById("answer-input");
+  const summaryBox = document.getElementById("final-summary");
+
+  // पहला सवाल
+  questionText.textContent = "नमस्ते, क्या मै आपका नाम जान सकता हूँ। कृपया अपना नाम बताइए।";
+
+  function handleNext() {
+    const input = answerInput.value.trim();
+    if (!input) {
+      alert("कृपया उत्तर दर्ज करें।");
+      return;
+    }
+
+    if (step === 0) {
+      data.name = input;
+      questionText.textContent = `शुक्रिया ${data.name} जी! आप कहाँ जाना चाहते हैं?`;
+      answerInput.value = "";
+      step++;
+    } else if (step === 1) {
+      data.place = input;
+      questionText.textContent = `${data.place} कितनी दूर है? कृपया किलोमीटर में बताइए।`;
+      answerInput.value = "";
+      step++;
+    } else if (step === 2) {
+      data.distance = input;
+      questionText.textContent = "कृपया अपना संपर्क नंबर बताइए।";
+      answerInput.value = "";
+      step++;
+    } else if (step === 3) {
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (!phoneRegex.test(input)) {
+        alert("कृपया वैध 10 अंकों का मोबाइल नंबर दर्ज करें।");
+        return;
+      }
+      data.contact = input;
+      document.getElementById("question-box").style.display = "none";
+      summaryBox.style.display = "block";
+
+      const message = `नमस्ते,श्री मान जी मेरा नाम ${data.name} है। मैं ${data.place} जाना चाहता हूँ जो ${data.distance} km दूर है। मेरा संपर्क नंबर है: ${data.contact}।`;
+
+      summaryBox.innerHTML = `
+        <h3>धन्यवाद ${data.name} जी!</h3>
+        <p>गंतव्य: ${data.place}</p>
+        <p>दूरी: ${data.distance}</p>
+        <p>संपर्क: ${data.contact}</p>
+        <a class="whatsapp-link" href="https://wa.me/?text=${encodeURIComponent(message)}" target="_blank">
+          📲 WhatsApp पर जानकारी भेजें
+        </a>
+      `;
+
+      sendToAPI(data);
+    }
+  }
+
+  function sendToAPI(payload) {
+    fetch("https://example.com/api/saveInfo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(response => {
+      console.log("API Response:", response);
+    })
+    .catch(error => {
+      console.error("API Error:", error);
+    });
+  }
+</script>
 <section class="section " id="services">
   <h1>Our Services</h2>
   <div class="cards">
