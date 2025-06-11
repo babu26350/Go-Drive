@@ -588,17 +588,33 @@ font-weight: 700;
   z-index: 1000;
 }
 
-.share-box a {
-  color: #ccc;
-  font-size: 20px;
-  background-color: #222;
-  padding: 10px 15px;
+/* .share-box a {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+    border-radius: 50%;
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.3s;
+  } */
+   .share-box a {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
-  text-align: center;
-  transition: background 0.3s, color 0.3s;
+  font-size: 18px;
   text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background 0.3s ease;
 }
-
 .share-box a:hover {
   background-color: #555;
   color: white;
@@ -612,6 +628,7 @@ a {
   margin-bottom: 10px;
   padding: 10px 8px; /* Increase clickable area */
 }
+
 
   </style>
 </head>
